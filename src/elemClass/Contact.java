@@ -2,11 +2,11 @@ package elemClass;
 
 public class Contact {
 	
-	public String firstName;
-	public String lastName;
-	public int phoneNum;
+	String firstName;
+	String lastName;
+	Integer phoneNum;
 	
-	public Contact(String firstName, String lastName, int phoneNum) {
+	public Contact(String firstName, String lastName, Integer phoneNum) {
 		
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -24,10 +24,10 @@ public class Contact {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getPhoneNum() {
+	public Integer getPhoneNum() {
 		return phoneNum;
 	}
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(Integer phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 }
