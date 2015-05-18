@@ -4,9 +4,9 @@ public class Contact {
 	
 	String firstName;
 	String lastName;
-	Integer phoneNum;
+	int phoneNum;
 	
-	public Contact(String firstName, String lastName, Integer phoneNum) {
+	public Contact(String firstName, String lastName, int phoneNum) {
 		
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -24,10 +24,10 @@ public class Contact {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Integer getPhoneNum() {
+	public int getPhoneNum() {
 		return phoneNum;
 	}
-	public void setPhoneNum(Integer phoneNum) {
+	public void setPhoneNum(int phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 }
