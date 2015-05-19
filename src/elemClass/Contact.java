@@ -12,6 +12,9 @@ public class Contact {
 		this.lastName = lastName;
 		this.phoneNum = phoneNum;
 	}
+	public Contact() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getFirstName() {
 		return firstName;
 	}
