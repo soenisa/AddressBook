@@ -1,5 +1,7 @@
 package elemClass;
 import java.util.Scanner;
+
+import DB.SQLiteHelper;
 import java.util.ArrayList;
 import elemClass.Contact;
 
@@ -28,8 +30,14 @@ public class Console {
 				temp.setPhoneNum(Integer.parseInt(scanIn.next()));
 				System.out.println("Contact Created!");
 			} else if(userIn.toLowerCase().equals("getcontact")) {
-				System.out.println("What contact?");
-				// make a hashmap of all the conacts and map them by first and last names. list all of the same name
+				System.out.println("Search by contact last name:");
+				userIn = scanIn.next();
+				for (int i = 0; i < contacts.size(); i++)
+			        if(userIn.equals(contacts.get(i).getLastName()))
+			            System.out.println(contacts.get(i).toString());
+			} else if(userIn.toLowerCase().equals("connectdb")) {
+				System.out.println("Establishing connection...");
+				SQLiteHelper.connectDB();
 			} else if(userIn.toLowerCase().equals("exit")) {
 				exit = true;
 				System.out.println("Goodbye :'(");

@@ -1,0 +1,1 @@
+* Use surrogate keys for Contacts database
