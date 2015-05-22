@@ -1,1 +1,3 @@
 * Use surrogate keys for Contacts database
+* Develop SQLite helper
+* Implement DAO for SQLite

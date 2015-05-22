@@ -1,5 +1,6 @@
 package elemClass;
 import java.util.Scanner;
+import DAOs.ContactSQLiteDAO;
 
 import DB.SQLiteHelper;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Console {
 		String userIn;
 		ArrayList<Contact> contacts = new ArrayList<Contact>();
 		boolean exit = false;
+		ContactSQLiteDAO SQLite = new ContactSQLiteDAO();
 		
 		
 		while(exit == false) {
@@ -35,10 +37,32 @@ public class Console {
 				for (int i = 0; i < contacts.size(); i++)
 			        if(userIn.equals(contacts.get(i).getLastName()))
 			            System.out.println(contacts.get(i).toString());
-			} else if(userIn.toLowerCase().equals("connectdb")) {
+			} 
+			
+			
+			else if(userIn.toLowerCase().equals("connectdb")) {
 				System.out.println("Establishing connection...");
 				SQLiteHelper.connectDB();
-			} else if(userIn.toLowerCase().equals("exit")) {
+			}else if(userIn.toLowerCase().equals("createtable")) {
+				System.out.println("New table name:");
+				userIn = scanIn.next();
+				SQLiteHelper.createTable(userIn);
+			}else if(userIn.toLowerCase().equals("insertnewcontact")) {
+				Contact temp = new Contact();
+				contacts.add(temp);
+				System.out.println("First name:");
+				temp.setFirstName(scanIn.next());
+				System.out.println("Last name:");
+				temp.setLastName(scanIn.next());
+				System.out.println("Phone Number:");
+				temp.setPhoneNum(Integer.valueOf(scanIn.next()));
+				
+				SQLite.createInstance(temp.getFirstName(), temp.getLastName(), temp.getPhoneNum());
+				System.out.println("Contact Inserted into Database!!");
+			} 
+			
+			
+			else if(userIn.toLowerCase().equals("exit")) {
 				exit = true;
 				System.out.println("Goodbye :'(");
 			} else {
