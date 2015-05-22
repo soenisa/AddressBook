@@ -69,3 +69,5 @@ local.properties
  
 # PDT-specific
 .buildpath
+
+sqlite3.exe
