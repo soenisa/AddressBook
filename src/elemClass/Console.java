@@ -64,6 +64,9 @@ public class Console {
 			
 			else if(userIn.toLowerCase().equals("exit")) {
 				exit = true;
+				// TODO: Don't leave this in here
+				// TODO: Connections should open and close as queries are executed
+				SQLiteHelper.disconnectDB();
 				System.out.println("Goodbye :'(");
 			} else {
 				System.out.println("That command is not recognized :(");

@@ -17,18 +17,27 @@ public class SQLiteHelper {
 		    System.out.println("Opened database successfully");
 	}
 	
+	public static void disconnectDB() {
+		try {
+			c.close();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			System.exit(0);
+		}
+		
+	}
+	
 	public static void createTable(String tableName) {
 		 Statement stmt = null;
 		 try {
 			 stmt = c.createStatement();
 		      String sql = "CREATE TABLE "+ tableName.toUpperCase() + " " +
-		                  /* "(ID INT PRIMARY KEY     NOT NULL," +*/
-		                   "( FNAME           TEXT    NOT NULL, " + 
+		                   "(ID INTEGER PRIMARY KEY," +
+		                   " FNAME           TEXT    NOT NULL, " + 
 		                   " LNAME            TEXT     NOT NULL, " + 
 		                   " PHONENUM        INT)"; 
 		      stmt.executeUpdate(sql);
 		      stmt.close();
-		      c.close();
 		 } catch ( Exception e ) {
 		      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		      System.exit(0);
@@ -46,7 +55,6 @@ public class SQLiteHelper {
 			 pstmt.setInt(3, phonenum);
 		     pstmt.executeUpdate();
 		     pstmt.close();
-		     c.close();
 		 } catch ( Exception e ) {
 		      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		      System.exit(0);
