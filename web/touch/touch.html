@@ -1,4 +1,4 @@
- //Currently working on: make active button of contacts change color in bootstrap. Get meteor to change some varialb when botton is pressed
+<!--  Currently working on: make active button of contacts change color in bootstrap. Get meteor to change some varialb when botton is pressed -->
 
  <head>
     <meta charset="utf-8">
@@ -42,19 +42,36 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Touch to make Contact.</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        <!-- <h1>Touch to make Contact.</h1>
+        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p> -->
       </div>
 
+	{{> addContactForm}}
 
-      <div class="touchList">
-        {{> addContactForm}}
-       <div class="list-group">
-		{{#each contacts}}
-          {{> contact}}
-      	{{/each}}
+	<div class="row">
+		<div class="col-md-4">
+			<div class="touchList">
+				<div class="list-group">
+					{{#each contacts}}
+				  		{{> contact}}
+					{{/each}}
+				</div>
+			</div>
 		</div>
-      </div>
+
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					things are happening here <br/>
+					{{activeContact}}
+					{{> contactPanel}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	
 
     </div><!-- /.container -->
 
@@ -70,9 +87,14 @@
 	</body>
 
 	<template name="contact">
-	  <button class="list-group-item {{#if active}}active{{/if}}">
-	    <span class="text">{{fname}} {{lname}} #{{num}}</span>
+	  <button class="list-group-item">
+	    <span class="text">{{fname}} {{lname}}</span>
 	  </button>
+	</template>
+
+	<template name="contactPanel">
+		<h3>{{fname}} {{lname}}</h3>
+	 	#{{num}}
 	</template>
 
 	<template name="addContactForm">
@@ -82,4 +104,5 @@
 	      <input type="text" name="num" placeholder="Contact Number">
 	      <input type="submit" value="Add Contact">
       </form>
+      <button class="reset">Reset</button>
 	</template>
