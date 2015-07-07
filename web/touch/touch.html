@@ -63,8 +63,11 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					things are happening here <br/>
-					{{activeContact}}
-					{{> contactPanel}}
+					
+
+
+						{{> contactPanel}}
+ 					
 				</div>
 			</div>
 		</div>
@@ -93,8 +96,8 @@
 	</template>
 
 	<template name="contactPanel">
-		<h3>{{fname}} {{lname}}</h3>
-	 	#{{num}}
+		<h3>firstName lastName</h3>
+	 	# phoneNumber
 	</template>
 
 	<template name="addContactForm">

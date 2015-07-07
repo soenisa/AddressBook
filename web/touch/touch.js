@@ -6,10 +6,14 @@ if (Meteor.isClient) {
     contacts: function() {
       return Contacts.find({}, {sort: {fname: 1}});
     },
-    activeContact: function() {
+   
+  });
+
+  Template.contactPanel.helpers({
+     activeContact: function() {
       return Contacts.find(Session.get("activeContact"));
     }
-  });
+  })
 
   Template.addContactForm.events({
     "submit form": function (event) {
