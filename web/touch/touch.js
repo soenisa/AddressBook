@@ -6,14 +6,11 @@ if (Meteor.isClient) {
     contacts: function() {
       return Contacts.find({}, {sort: {fname: 1}});
     },
-   
-  });
-
-  Template.contactPanel.helpers({
-     activeContact: function() {
+   activeContact: function() {
       return Contacts.find(Session.get("activeContact"));
     }
-  })
+  });
+
 
   Template.addContactForm.events({
     "submit form": function (event) {
@@ -41,6 +38,7 @@ if (Meteor.isClient) {
   Template.contact.events({
     "click button": function() {
       Session.set("activeContact", this._id);
+      console.log(Session.get("activeContact"));
     }
   });
 
