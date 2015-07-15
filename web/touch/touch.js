@@ -2,7 +2,7 @@ Contacts = new Mongo.Collection("contacts");
 
 if (Meteor.isClient) {
 
-  Template.body.helpers({
+  Template.contactView.helpers({
     contacts: function() {
       return Contacts.find({}, {sort: {fname: 1}});
     },
@@ -12,7 +12,7 @@ if (Meteor.isClient) {
   });
 
 
-  Template.addContactForm.events({
+  Template.addContact.events({
     "submit form": function (event) {
       event.preventDefault();
       var fName = event.target.fName.value;
@@ -38,7 +38,6 @@ if (Meteor.isClient) {
   Template.contact.events({
     "click button": function() {
       Session.set("activeContact", this._id);
-      console.log(Session.get("activeContact"));
     }
   });
 

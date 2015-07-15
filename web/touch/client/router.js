@@ -1,3 +1,8 @@
+Router.configure({
+	layoutTemplate: 'layout'
+});
+
 Router.map(function() {
-	this.route('home', {path: '/'});
-})
+	this.route('contactView', {path: '/'});
+	this.route('addContact', {path: '/addContact'});
+});
