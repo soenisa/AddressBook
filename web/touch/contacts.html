@@ -1,3 +1,4 @@
+<!-- Whole list and information panel for viewing contacts -->
 <template name="contactView">
 	<div class="row">
 		<div class="col-md-4">
@@ -13,7 +14,7 @@
 		<div class="col-md-8">
 			<div class="panel panel-default">
 				<div class="panel-body">
-				Things happen here?? Supposedly???
+				<h3>Contact Information</h3>
 				{{#each activeContact}}
 						{{> contactPanel}}
 				{{/each}}
@@ -31,15 +32,27 @@
 
 <template name="contactPanel">
 		<h3>{{fname}} {{lname}}</h3>
-	 	# {{num}}
+	 	# {{num}} <br/>
+	 	Affiliates: {{affiliate}}
 </template>
 
+<!-- Complete form for adding Contacts -->
 <template name="addContact">
   <form class="new-contact">
       <input type="text" name="fName" placeholder="First Name">
       <input type="text" name="lName" placeholder="Last Name">
-      <input type="text" name="num" placeholder="Contact Number">
+      <input type="text" name="num" placeholder="Contact Number"><br/>
+      {{> inputAutocomplete type="text" settings=settings name="aff" class="input-autocom" placeholder="what" autocomplete="off"}}<br/>
+      <ul class="list-group">
+      {{#each seshAffiliate}}
+      	{{> affListItem}}
+	  {{/each}}
+	</ul>
       <input type="submit" value="Add Contact">
   </form>
   <button class="reset">Reset</button>
+</template>
+
+<template name="affListItem">
+	<li class="list-group-item">{{name}}</li>
 </template>
