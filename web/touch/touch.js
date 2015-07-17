@@ -14,7 +14,7 @@ if (Meteor.isClient) {
 
   Template.addContact.helpers({
     seshAffiliate: function() {
-      Session.get("inputAffiliates");
+      return Session.get("seshAff");
     },
    settings: function() {
       return {
@@ -62,13 +62,28 @@ if (Meteor.isClient) {
       event.target.aff.value = "";
     },
     "click .reset": function() {
-      Meteor.call("removeAllPosts");
+      Meteor.call("removeAllContacts");
+      Meteor.call("removeAllAffiliates");
     },
     "autocompleteselect input": function(event, template, doc) {
-      console.log("selected ", doc);
-      Session.set()
+      if (!Session.get('seshAff')) {
+        Session.set('seshAff', [doc]);
+      } else {
+        var currAffs = Session.get('seshAff').slice();
+        currAffs.push(doc);
+        Session.set('seshAff', currAffs);
+      }
   }
   });
+
+  Template.affListItem.events({
+    "click button": function() {
+      console.log('hey you clicked it!!!');
+      console.log(this);
+      var currAffs = Session.get('seshAff').slice(indexOf(this));
+      Session.set('seshAff', currAffs);
+    }
+  })
 
   Template.contact.events({
     "click button": function() {
@@ -83,9 +98,10 @@ if (Meteor.isServer) {
     // code to run on server at startup
 
     Meteor.methods({
-      removeAllPosts: function() {
+      removeAllContacts: function() {
         Contacts.remove({});
+        Affiliates.remove({});
       }
-    });
   });
+});
 }
