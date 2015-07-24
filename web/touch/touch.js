@@ -24,6 +24,7 @@ if (Meteor.isClient) {
           {
             collection: Affiliates,
             field: "name",
+            noMatchTemplate: Template.noMatchAffiliate,
             matchAll: false,
             template: Template.pill
           }
@@ -66,7 +67,7 @@ if (Meteor.isClient) {
       Meteor.call("removeAllAffiliates");
     },
     "autocompleteselect input": function(event, template, doc) {
-      if (!Session.get('seshAff')) {
+      if (!Session.get('seshAff')) { // If Session has no values
         Session.set('seshAff', [doc]);
       } else {
         var currAffs = Session.get('seshAff').slice();
@@ -91,7 +92,25 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.noMatchAffiliate.events({
+    // When unmatched item is clicked
+  click: function(event) {
+    var aff = event.target.aff.value;
+    console.log('you added this! aff');
+
+    if (!Session.get('seshAff')) { // If Session has no values
+        Session.set('seshAff', [aff]);
+      } else {
+        var currAffs = Session.get('seshAff').slice();
+        currAffs.push(aff);
+        Session.set('seshAff', currAffs);
+      }
+  }
+
+});
+
 }
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
