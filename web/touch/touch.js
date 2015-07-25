@@ -14,6 +14,7 @@ if (Meteor.isClient) {
 
   Template.addContact.helpers({
     seshAffiliate: function() {
+      console.log(Session.get("seshAff"));
       return Session.get("seshAff");
     },
    settings: function() {
@@ -39,7 +40,7 @@ if (Meteor.isClient) {
       var fName = event.target.fName.value;
       var lName = event.target.lName.value;
       var num = event.target.num.value;
-      var aff = event.target.aff.value;
+      var aff = Session.get("seshAff");
 
       Contacts.insert( {
         fname: fName,
@@ -49,13 +50,17 @@ if (Meteor.isClient) {
         updated: new Date()
       });
 
-      var affExist = Affiliates.find({name: aff}, {limit: 1}).count();
 
-      if (affExist == 0) {
-        Affiliates.insert( {
-          name: aff
-        });
+      for(var i=0;i<aff.length;i++) {
+        var affExist = Affiliates.find({name: aff[i]}, {limit: 1}).count();
+        if (affExist == 0) {
+          Affiliates.insert( {
+            name: aff[i]
+          });
+        }
+        
       }
+
 
       event.target.fName.value = "";
       event.target.lName.value = "";
@@ -94,20 +99,19 @@ if (Meteor.isClient) {
 
   Template.noMatchAffiliate.events({
     // When unmatched item is clicked
-  click: function(event) {
-    var aff = event.target.aff.value;
-    console.log('you added this! aff');
+    click: function(event, template, doc) {
+      var aff = {name: this.filter};
+      console.log('Filter is: ' + aff);      
 
-    if (!Session.get('seshAff')) { // If Session has no values
-        Session.set('seshAff', [aff]);
-      } else {
-        var currAffs = Session.get('seshAff').slice();
-        currAffs.push(aff);
-        Session.set('seshAff', currAffs);
-      }
-  }
-
-});
+      if (!Session.get('seshAff')) { // If Session has no values
+          Session.set('seshAff', [aff]);
+        } else {
+          var currAffs = Session.get('seshAff').slice();
+          currAffs.push(aff);
+          Session.set('seshAff', currAffs);
+        }
+      } 
+  });
 
 }
 

@@ -33,7 +33,10 @@
 <template name="contactPanel">
 		<h3>{{fname}} {{lname}}</h3>
 	 	# {{num}} <br/>
-	 	Affiliates: {{affiliate}}
+	 	Affiliates: 
+ 		{{#each allAffiliates}}
+	 		{{> affListItem}}
+	 	{{/each}}
 </template>
 
 <!-- Complete form for adding Contacts -->
