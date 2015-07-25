@@ -47,9 +47,8 @@
 	<input type="text" name="num" placeholder="Contact Number" autocomplete="off"><br/>
 	{{> inputAutocomplete type="text" settings=settings name="aff" class="input-autocom" placeholder="Affiliates..." autocomplete="off"}}<br/>
 	<ul class="list-group selectedAffialites">
-		<li class="list-group-item">This is a thingy</li>
 		{{#each seshAffiliate}}
-			{{> affListItem}}
+			{{> addAffListItem}}
 		{{/each}}
 	</ul>
 	<input type="submit" value="Add Contact">
@@ -58,5 +57,9 @@
 </template>
 
 <template name="affListItem">
+	<li class="list-group-item">{{name}}</li>
+</template>
+
+<template name="addAffListItem">
 	<button class="list-group-item">{{name}}</button>
 </template>

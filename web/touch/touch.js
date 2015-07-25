@@ -46,7 +46,7 @@ if (Meteor.isClient) {
         fname: fName,
         lname: lName,
         num: num,
-        affiliate: aff,
+        affiliates: aff,
         updated: new Date()
       });
 
@@ -54,11 +54,11 @@ if (Meteor.isClient) {
       for(var i=0;i<aff.length;i++) {
         var affExist = Affiliates.find({name: aff[i]}, {limit: 1}).count();
         if (affExist == 0) {
+          console.log(aff[i].name);
           Affiliates.insert( {
-            name: aff[i]
+            name: aff[i].name
           });
         }
-        
       }
 
 
@@ -66,6 +66,7 @@ if (Meteor.isClient) {
       event.target.lName.value = "";
       event.target.num.value = "";
       event.target.aff.value = "";
+      Session.set("seshAff", null);
     },
     "click .reset": function() {
       Meteor.call("removeAllContacts");
@@ -82,7 +83,7 @@ if (Meteor.isClient) {
   }
   });
 
-  Template.affListItem.events({
+  Template.addAffListItem.events({
     "click button": function() {
       console.log('hey you clicked it!!!');
       console.log(this);
@@ -111,6 +112,12 @@ if (Meteor.isClient) {
           Session.set('seshAff', currAffs);
         }
       } 
+  });
+
+  Template.contactPanel.helpers({
+    allAffiliates: function() {
+      return this.affiliates;
+    }
   });
 
 }
