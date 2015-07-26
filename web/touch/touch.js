@@ -1,5 +1,6 @@
 Contacts = new Mongo.Collection('contacts');
 Affiliates = new Mongo.Collection('affiliates');
+Associations = new Mongo.Collection('associations');
 
 if (Meteor.isClient) {
 
@@ -13,9 +14,8 @@ if (Meteor.isClient) {
   });
 
   Template.addContact.helpers({
-    seshAffiliate: function() {
-      console.log(Session.get("seshAff"));
-      return Session.get("seshAff");
+    seshAssociations: function() {
+      return Session.get("seshAssoc");
     },
    settings: function() {
       return {
@@ -35,50 +35,73 @@ if (Meteor.isClient) {
   });
 
   Template.addContact.events({
+    "click #add_assoc": function(event) {
+      var aff = document.getElementById('addAff').value; // This seems hacky TODO: be smarter?
+      var occ = document.getElementById('addOcc').value;
+      console.log(aff);
+      console.log(occ);
+
+      var assoc = { occupation: occ,
+                    affiliate: aff};
+      //add association to Session
+      if (!Session.get('seshAssoc')) { // If Session has no values
+        Session.set('seshAssoc', [assoc]);
+      } else {
+        var currAffs = Session.get('seshAssoc').slice();
+        currAffs.push(assoc);
+        Session.set('seshAssoc', currAffs);
+      }
+
+      document.getElementById('addAff').value = "";
+      document.getElementById('addOcc').value = "";
+    },
     "submit form": function (event) {
       event.preventDefault();
-      var fName = event.target.fName.value;
-      var lName = event.target.lName.value;
-      var num = event.target.num.value;
-      var aff = Session.get("seshAff");
+      console.log('this is working now');
+      var fname = event.target.addFName.value;
+      var lname = event.target.addLName.value;
+      var num = event.target.addNum.value;
+      var occ = event.target.addOcc.value;
+      var assocs = Session.get("seshAssoc");
 
       Contacts.insert( {
-        fname: fName,
-        lname: lName,
+        fname: fname,
+        lname: lname,
         num: num,
-        affiliates: aff,
+        associations: assocs,
         updated: new Date()
       });
 
 
-      for(var i=0;i<aff.length;i++) {
-        var affExist = Affiliates.find({name: aff[i]}, {limit: 1}).count();
-        if (affExist == 0) {
-          console.log(aff[i].name);
+      for(var i=0;i<assocs.length;i++) {
+        Associations.insert(assocs[i]);
+
+        var affExists = Affiliates.find({name: assocs[i].affiliate}, {limit: 1}).count();
+        if (affExists == 0) {
+          console.log(assocs[i].affiliate);
           Affiliates.insert( {
-            name: aff[i].name
+            name: assocs[i].affiliate
           });
         }
       }
 
 
-      event.target.fName.value = "";
-      event.target.lName.value = "";
-      event.target.num.value = "";
-      event.target.aff.value = "";
-      Session.set("seshAff", null);
+      event.target.addFName.value = "";
+      event.target.addLName.value = "";
+      event.target.addNum.value = "";
+      event.target.addOcc.value = "";
+      Session.set("seshAssoc", null);
     },
     "click .reset": function() {
       Meteor.call("removeAllContacts");
-      Meteor.call("removeAllAffiliates");
     },
     "autocompleteselect input": function(event, template, doc) {
-      if (!Session.get('seshAff')) { // If Session has no values
-        Session.set('seshAff', [doc]);
+     if (!Session.get('seshAssoc')) { // If Session has no values
+        Session.set('seshAssoc', [doc]);
       } else {
-        var currAffs = Session.get('seshAff').slice();
+        var currAffs = Session.get('seshAssoc').slice();
         currAffs.push(doc);
-        Session.set('seshAff', currAffs);
+        Session.set('seshAssoc', currAffs);
       }
   }
   });
@@ -87,8 +110,8 @@ if (Meteor.isClient) {
     "click button": function() {
       console.log('hey you clicked it!!!');
       console.log(this);
-      var currAffs = Session.get('seshAff').slice(indexOf(this));
-      Session.set('seshAff', currAffs);
+      var currAffs = Session.get('seshAssoc').slice(indexOf(this));
+      Session.set('seshAssoc', currAffs);
     }
   })
 
@@ -100,23 +123,23 @@ if (Meteor.isClient) {
 
   Template.noMatchAffiliate.events({
     // When unmatched item is clicked
-    click: function(event, template, doc) {
+    click: function(event) {
       var aff = {name: this.filter};
       console.log('Filter is: ' + aff);      
 
-      if (!Session.get('seshAff')) { // If Session has no values
-          Session.set('seshAff', [aff]);
+      if (!Session.get('seshAssoc')) { // If Session has no values
+          Session.set('seshAssoc', [aff]);
         } else {
-          var currAffs = Session.get('seshAff').slice();
+          var currAffs = Session.get('seshAssoc').slice();
           currAffs.push(aff);
-          Session.set('seshAff', currAffs);
+          Session.set('seshAssoc', currAffs);
         }
       } 
   });
 
   Template.contactPanel.helpers({
-    allAffiliates: function() {
-      return this.affiliates;
+    allAssociations: function() {
+      return this.associations;
     }
   });
 
