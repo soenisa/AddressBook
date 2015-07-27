@@ -26,13 +26,14 @@
 
 <template name="contact">
 		<button class="list-group-item">
-			<span class="text">{{fname}} {{lname}}</span>
+			<span class="text">{{first_name}} {{last_name}}</span>
 		</button>
 </template>
 
 <template name="contactPanel">
-		<h3>{{fname}} {{lname}}</h3>
+		<h3>{{first_name}} {{last_name}}</h3>
 	 	# {{num}} <br/>
+	 	<br/>
 	 	Occupations: 
  		{{#each allAssociations}}
 	 		{{> assocListItem}}
@@ -42,9 +43,17 @@
 <!-- Complete form for adding Contacts -->
 <template name="addContact">
   <form class="new-contact">
-	<input type="text" name="addFName" placeholder="First Name" autocomplete="off">
-	<input type="text" name="addLName" placeholder="Last Name" autocomplete="off">
+	<input type="text" name="addFName" placeholder="First Name" autocomplete="off" required>
+	<input type="text" name="addLName" placeholder="Last Name" autocomplete="off" required>
 	<input type="text" name="addNum" placeholder="Contact Number" autocomplete="off"><br/>
+
+	<input type="email" name="addProfEmail" placeholder="Professional Email..." autocomplete="off">
+	<input type="email" name="addPersEmail" placeholder="Personal Email..." autocomplete="off">
+	<input type="text" name="addTwit" placeholder="Twitter username..." autocomplete="off">
+	<input type="text" name="addInsta" placeholder="Instagram username..." autocomplete="off">
+	<input type="text" name="addYouTube" placeholder="Youtube channel..." autocomplete="off">
+	
+	<br/>
 	<input type="text" name="addOcc" placeholder="Occupation..." autocomplete="off" id="addOcc"> at 
 	{{> inputAutocomplete type="text" settings=settings name="addAff" id="addAff" placeholder="Affiliates..." autocomplete="off"}}
 	<button type="button" id="add_assoc">Add</button><br/>

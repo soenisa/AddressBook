@@ -44,14 +44,26 @@
       var fname = event.target.addFName.value;
       var lname = event.target.addLName.value;
       var num = event.target.addNum.value;
+
+      var persEmail = event.target.addPersEmail.value;
+      var profEmail = event.target.addProfEmail.value;
+      var twit = event.target.addTwit.value;
+      var insta = event.target.addInsta.value;
+      var youTube = event.target.addYouTube.value;
+
       var occ = event.target.addOcc.value;
       var assocs = Session.get("seshAssoc");
 
       console.log('Inserting ' + fname + ' ' + lname + ' into database...');
       var contactId = Contacts.insert( {
-        fname: fname,
-        lname: lname,
+        first_name: fname,
+        last_name: lname,
         num: num,
+        personal_email: persEmail,
+        professional_email: profEmail,
+        twitter_handle: twit,
+        instagram_handle: insta,
+        youtube_handle: youTube,
         updated: new Date()
       });
 
