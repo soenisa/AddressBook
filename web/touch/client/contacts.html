@@ -35,7 +35,7 @@
 	 	# {{num}} <br/>
 	 	Occupations: 
  		{{#each allAssociations}}
-	 		{{> asocListItem}}
+	 		{{> assocListItem}}
 	 	{{/each}}
 </template>
 
@@ -58,7 +58,7 @@
   <button class="reset">Reset</button>
 </template>
 
-<template name="asocListItem">
+<template name="assocListItem">
 	<li class="list-group-item">{{occupation}} at {{affiliate}}</li>
 </template>
 
