@@ -1,5 +1,6 @@
 <!-- Whole list and information panel for viewing contacts -->
 <template name="contactView">
+	{{> loginButtons}}
 	<div class="row">
 		<div class="col-md-4">
 			<div class="touchList">
@@ -41,7 +42,13 @@
 </template>
 
 <!-- Complete form for adding Contacts -->
+
 <template name="addContact">
+	{{#unless currentUser}}
+	<div class="alert alert-danger" role="alert">
+		<span><strong>Oh no!</strong> You must be logged in to add new contacts.</span>
+	</div>
+	{{else}}
   <form class="new-contact">
 	<input type="text" name="addFName" placeholder="First Name" autocomplete="off" required>
 	<input type="text" name="addLName" placeholder="Last Name" autocomplete="off" required>
@@ -65,6 +72,7 @@
 	<input type="submit" id="add_contact" value="Add Contact">
   </form>
   <button class="reset">Reset</button>
+  {{/unless}}
 </template>
 
 <template name="assocListItem">

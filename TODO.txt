@@ -1,3 +1,3 @@
-* Use surrogate keys for Contacts database
-* Develop SQLite helper
-* Implement DAO for SQLite
+* Display contact attributes currently missing from contactPanel template
+	* personal/professional email, twitter, instagram, youtube
+* Implement contact delete/update

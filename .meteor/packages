@@ -6,6 +6,7 @@
 
 meteor-platform
 autopublish
-insecure
 iron:router
 mizzao:autocomplete
+accounts-ui
+accounts-password

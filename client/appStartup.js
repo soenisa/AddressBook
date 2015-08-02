@@ -19,5 +19,16 @@ Template.contactPanel.helpers({
   allAssociations: function() {
     console.log(this._id);
     return Associations.find({contact_id: this._id}, {sort: {affiliate: 1}});
+  },
+  persEmailExists: function(){
+    if(this.personal_email != "")
+      return true;
+    else
+      return false;
   }
+});
+
+
+Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
 });
