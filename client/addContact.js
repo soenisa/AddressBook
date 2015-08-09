@@ -17,24 +17,16 @@
           }
         ]
       };
-<<<<<<< HEAD
-<<<<<<< master
-=======
-=======
->>>>>>> format
     },
     strOrNull: function(str) {
       if(str == "")
         return null;
       else
         return str;
-<<<<<<< HEAD
     },
     isEmpty: function(obj) {
       return jQuery.isEmpty(obj);
->>>>>>> local
-=======
->>>>>>> format
+
     }
   });
 
