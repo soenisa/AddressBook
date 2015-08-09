@@ -17,6 +17,18 @@
           }
         ]
       };
+<<<<<<< master
+=======
+    },
+    strOrNull: function(str) {
+      if(str == "")
+        return null;
+      else
+        return str;
+    },
+    isEmpty: function(obj) {
+      return jQuery.isEmpty(obj);
+>>>>>>> local
     }
   });
 
