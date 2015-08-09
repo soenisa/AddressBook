@@ -17,18 +17,24 @@
           }
         ]
       };
+<<<<<<< HEAD
 <<<<<<< master
 =======
+=======
+>>>>>>> format
     },
     strOrNull: function(str) {
       if(str == "")
         return null;
       else
         return str;
+<<<<<<< HEAD
     },
     isEmpty: function(obj) {
       return jQuery.isEmpty(obj);
 >>>>>>> local
+=======
+>>>>>>> format
     }
   });
 
@@ -67,31 +73,19 @@
       var assocs = Session.get("seshAssoc");
 
       console.log('Inserting ' + fname + ' ' + lname + ' into database...');
-      var contactId = Contacts.insert( {
-        first_name: fname,
-        last_name: lname,
-        num: num,
-        personal_email: persEmail,
-        professional_email: profEmail,
-        twitter_handle: twit,
-        instagram_handle: insta,
-        youtube_handle: youTube,
-        updated: new Date()
-      });
+      var contactId = Meteor.call("addContact", fname, lname, num, persEmail, profEmail, twit, insta, youTube);
 
       //insert associations into Association collection
       // Also inert nonexistent Affiliations into Affiliates collection
       for(var i=0;i<assocs.length;i++) {
         assocs[i].contact_id = contactId;
-        Associations.insert(assocs[i]);
+        Meteor.call("addAssociation", assocs[i]);
         console.log('Inserting ' + assocs[i] + 'into Associations...');
 
         var affExists = Affiliates.find({name: assocs[i].affiliate}, {limit: 1}).count();
         if (affExists == 0) {
           console.log(assocs[i].affiliate + ' does not exist in Affiliates. Inserting...');
-          Affiliates.insert( {
-            name: assocs[i].affiliate
-          });
+          Meteor.call("addAffiliate", assocs[i].affiliate);
         }
       }
 
